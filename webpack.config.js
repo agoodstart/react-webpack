@@ -1,7 +1,14 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
+let mode = 'development';
+
+if (process.env.NODE_ENV === 'production') {
+  mode = 'production';
+}
+
 module.exports = {
+  mode,
   entry: './src/index.js',
 
   // output for building/production phase
@@ -34,6 +41,7 @@ module.exports = {
     ]
   },
 
+  devtool: 'source-map',
   devServer: {
     static: {
       directory: path.join(__dirname, '/public')
