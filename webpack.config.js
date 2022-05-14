@@ -4,11 +4,12 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
 
+  // output for building/production phase
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js'
   },
-  
+
   plugins: [
     new HTMLWebpackPlugin({
       template: './public/index.html'
@@ -31,5 +32,13 @@ module.exports = {
         }
       }
     ]
+  },
+
+  devServer: {
+    static: {
+      directory: path.join(__dirname, '/public')
+    },
+    compress: true,
+    port: 9000,
   }
 }
