@@ -1,4 +1,4 @@
-import Typography from "./components/Typography/Typography"
+import Typography from "@components/Typography/Typography"
 
 export default function App() {
   console.log('hello from App.js')

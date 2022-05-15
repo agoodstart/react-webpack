@@ -29,12 +29,23 @@ module.exports = {
     rules: [
       {
         test: /\.module\.s(a|c)ss$/,
+        // include: /\.module.(s(a|c)ss)$/,  
         use: [
           mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: {
+                auto: true,
+                mode: 'local',
+                localIdentName: '[name]_[local]__[hash:base64:5]',
+                getLocalIdent: (context, localIdentName, localName, options) => {
+                  console.log(options)
+                  // console.log(localName);
+                  // console.log(localIdentName);
+                  // return localIdentName.replace("-module", "").toLowerCase();
+                }
+              },
               sourceMap: mode === 'development'
             }
           },
@@ -88,6 +99,14 @@ module.exports = {
   },
 
   devtool: 'source-map',
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss'],
+    alias: {
+      '@components': path.resolve(__dirname, 'lib/components'),
+      // ...etc
+    },
+  },
+
   devServer: {
     static: {
       directory: path.join(__dirname, '/public')
