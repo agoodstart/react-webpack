@@ -5,3 +5,7 @@ body {
   background-color: variables.$bg;
   color: var(--text);
 }
+
+main {
+  background-origin: border-box;
+}
