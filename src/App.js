@@ -1,6 +1,11 @@
+import Typography from "./components/Typography/Typography"
+
 export default function App() {
   console.log('hello from App.js')
   return (
-    <h1>Hello from react with webpack</h1>
+    <Typography variant="h1">
+    There is a world outside <br></br> 
+    waiting for you
+  </Typography>
   )
 }

@@ -28,9 +28,30 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s?css$/i,
+        test: /\.module\.s(a|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader, 
+          mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: mode === 'development'
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: mode === 'development',
+              implementation: require('sass'),
+            }
+          }
+        ]
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        use: [
+          mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader', 
           {
             loader: 'postcss-loader',
@@ -42,7 +63,12 @@ module.exports = {
               }
             } 
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+            },
+          }
         ],
       },
       {
